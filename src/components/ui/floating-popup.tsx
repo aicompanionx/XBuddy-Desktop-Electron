@@ -11,7 +11,6 @@ import {
   OffsetOptions,
 } from '@floating-ui/react'
 import { cn } from '@/utils'
-import { CLASSNAME } from '@/constants/classname'
 
 interface FloatingPopupProps {
   isActive: boolean
@@ -77,7 +76,6 @@ const FloatingPopup = ({
   const animationClasses = cn(
     'z-50 transition-opacity duration-300',
     isActive ? 'animate-in fade-in opacity-100' : 'opacity-0 pointer-events-none',
-    CLASSNAME.IGNORE_MOUSE_EVENTS,
     expandUpwards ? 'flex flex-col-reverse' : '',
     popupClassName,
   )

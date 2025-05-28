@@ -15,7 +15,7 @@ export const createMainWindow = (url?: string): BrowserWindow => {
   const browserWindow = new BrowserWindow({
     width: screenWidth,
     height: screenHeight,
-    transparent: false,
+    transparent: true,
     backgroundColor: '#00000000',
     frame: false,
     maximizable: false,

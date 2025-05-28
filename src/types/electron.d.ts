@@ -61,6 +61,7 @@ interface ElectronAPI {
   createNewsWindow: (options: { width?: number; height?: number }) => Promise<number>
   setWindowPosition: (options: { windowId: string; x: number; y: number }) => void
   getWindowPosition: (windowId: string) => Promise<{ x: number; y: number }>
+  closeCurrentWindow: () => void
 
   // Automation related
   startAutomation: (options: unknown) => Promise<unknown>
@@ -134,6 +135,9 @@ interface ElectronAPI {
 
   // HTTP API (as namespace)
   http: HttpAPI
+
+  // Transparent pixel detection using page capture
+  checkTransparentPixel: (options: { windowId: string; x: number; y: number }) => Promise<boolean>
 }
 
 interface SpeakOptions {

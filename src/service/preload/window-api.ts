@@ -87,4 +87,9 @@ export const windowApi = {
   closeCurrentWindow: () => {
     ipcRenderer.send('close-current-window')
   },
+
+  // Check if a pixel at given screen coordinates is transparent using page capture
+  checkTransparentPixel: async (options: { windowId: string; x: number; y: number }): Promise<boolean> => {
+    return await ipcRenderer.invoke('check-transparent-pixel', options)
+  },
 }
