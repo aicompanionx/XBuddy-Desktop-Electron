@@ -1,4 +1,4 @@
-import React, { RefObject, useRef } from 'react'
+import React, { useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MenuButton from './live2d-menu-button'
 import FloatingPopup from '@/components/ui/floating-popup'

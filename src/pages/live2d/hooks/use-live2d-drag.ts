@@ -73,15 +73,15 @@ export const useLive2DDrag = (containerRef: React.RefObject<HTMLDivElement>) => 
         const newX = translatePositionRef.current.x + deltaX;
         const newY = translatePositionRef.current.y + deltaY;
 
-        // Enhanced viewport boundary detection
+        // Enhanced viewport boundary detection - allow half body to be hidden
         const containerWidth = containerRef.current.offsetWidth;
         const containerHeight = containerRef.current.offsetHeight;
 
-        // Calculate boundary limits for viewport
-        const minVisibleWidth = containerWidth;
-        const minVisibleHeight = containerHeight;
+        // Allow half of the model to be hidden outside viewport
+        const minVisibleWidth = containerWidth / 2;
+        const minVisibleHeight = containerHeight / 2;
 
-        // Calculate boundary limits for viewport
+        // Calculate boundary limits for viewport - allow dragging half body out
         const boundedX = Math.max(-containerWidth + minVisibleWidth, Math.min(newX, viewportWidth - minVisibleWidth));
         const boundedY = Math.max(-containerHeight + minVisibleHeight, Math.min(newY, viewportHeight - minVisibleHeight));
 

@@ -92,4 +92,23 @@ export const windowApi = {
   checkTransparentPixel: async (options: { windowId: string; x: number; y: number }): Promise<boolean> => {
     return await ipcRenderer.invoke('check-transparent-pixel', options)
   },
+
+  // 应用焦点事件监听
+  onAppBlur: (callback: () => void) => {
+    const listener = () => callback()
+    ipcRenderer.on('app-blur', listener)
+
+    return () => {
+      ipcRenderer.removeListener('app-blur', listener)
+    }
+  },
+
+  onAppFocus: (callback: () => void) => {
+    const listener = () => callback()
+    ipcRenderer.on('app-focus', listener)
+
+    return () => {
+      ipcRenderer.removeListener('app-focus', listener)
+    }
+  },
 }

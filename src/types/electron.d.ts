@@ -138,6 +138,10 @@ interface ElectronAPI {
 
   // Transparent pixel detection using page capture
   checkTransparentPixel: (options: { windowId: string; x: number; y: number }) => Promise<boolean>
+
+  // 应用焦点事件监听
+  onAppBlur: (callback: () => void) => () => void
+  onAppFocus: (callback: () => void) => () => void
 }
 
 interface SpeakOptions {

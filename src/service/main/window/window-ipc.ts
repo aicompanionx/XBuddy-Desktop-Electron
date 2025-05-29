@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { ipcMain, app } from 'electron'
 import { getWindowById, getMainWindow, setWindowPosition } from './window-registry'
 import { WINDOWS_ID } from '@/constants/windowsId'
 
@@ -83,7 +83,28 @@ export const initWindowManagerIPC = () => {
     }
   })
 
+  setupAppFocusEvents()
+
   registerGenericWindowEvents()
+}
+
+/**
+ * Setup app focus events
+ */
+const setupAppFocusEvents = () => {
+  app.on('browser-window-blur', () => {
+    const mainWindow = getMainWindow()
+    if (mainWindow) {
+      mainWindow.webContents.send('app-blur')
+    }
+  })
+
+  app.on('browser-window-focus', () => {
+    const mainWindow = getMainWindow()
+    if (mainWindow) {
+      mainWindow.webContents.send('app-focus')
+    }
+  })
 }
 
 const registerGenericWindowEvents = () => {
@@ -97,7 +118,7 @@ const registerGenericWindowEvents = () => {
   // Handle transparent pixel detection using page capture
   ipcMain.handle('check-transparent-pixel', async (_event, { windowId, x, y }) => {
     const window = getWindowById(windowId)
-    console.log('window', typeof window)
+
     if (!window) {
       return false
     }
@@ -125,17 +146,13 @@ const registerGenericWindowEvents = () => {
       // Convert to bitmap data
       const bitmap = image.toBitmap()
 
-      console.log('bitmap', bitmap)
       if (bitmap.length === 0) {
-        console.log('bitmap is empty')
         return false
       }
 
       // For a 1x1 pixel, the bitmap should have 4 bytes (RGBA)
       // Check the alpha channel (4th byte) - if it's 0, the pixel is transparent
       const alpha = bitmap[3]
-
-      console.log('alpha', alpha)
 
       return alpha === 0
     } catch (error) {

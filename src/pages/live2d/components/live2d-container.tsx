@@ -7,7 +7,6 @@ import { useAlert } from '@/contexts/alert-context'
 import { useLive2DMenu } from '@/contexts/live2d-menu-context'
 import { useLive2D } from '@/contexts/live2d-context'
 import { storageUtil } from '@/utils/storage'
-import FloatingPopup from '@/components/ui/floating-popup'
 
 const width = 300
 const height = 500
