@@ -9,7 +9,7 @@ interface NewsAlertProps {
 }
 
 const NewsAlert = ({ referenceElement }: NewsAlertProps) => {
-  const { latestNews = { id: 1, title: '123' } } = useNewsWebSocket()
+  const { latestNews } = useNewsWebSocket()
   const [isActive, setIsActive] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
