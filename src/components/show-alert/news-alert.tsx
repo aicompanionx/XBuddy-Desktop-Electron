@@ -9,7 +9,7 @@ interface NewsAlertProps {
 }
 
 const NewsAlert = ({ referenceElement }: NewsAlertProps) => {
-  const { latestNews } = useNewsWebSocket()
+  const { latestNews = { id: 1, title: '123' } } = useNewsWebSocket()
   const [isActive, setIsActive] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
@@ -24,15 +24,16 @@ const NewsAlert = ({ referenceElement }: NewsAlertProps) => {
       // Show the popup
       setIsActive(true)
 
-      // Clear any existing timer
-      if (timerRef.current) {
-        clearTimeout(timerRef.current)
-      }
-
       // Set new timer to hide popup after 5 seconds
       timerRef.current = setTimeout(() => {
         if (!isHovering) {
           setIsActive(false)
+          // Clear any existing timer
+          if (timerRef.current) {
+            clearTimeout(timerRef.current)
+            timerRef.current = null
+          }
+          // clearTimeout(timerRef.current)
         }
       }, 5000)
     }
